@@ -2,7 +2,6 @@ package;
 
 import kha.Color;
 import kha.Framebuffer;
-import kha.graphics4.FragmentShader;
 import kha.graphics4.IndexBuffer;
 import kha.graphics4.PipelineState;
 import kha.graphics4.Usage;
@@ -18,7 +17,7 @@ class Main {
 	private static var indices: IndexBuffer;
 	
 	public static function main(): Void {
-		System.init({title: "Shader", width: 640, height: 480}, function () {
+		System.start({title: "Shader", width: 640, height: 480}, function (_) {
 			var structure = new VertexStructure();
 			structure.add("pos", VertexData.Float3);
 			
@@ -40,12 +39,12 @@ class Main {
 			i[0] = 0; i[1] = 1; i[2] = 2;
 			indices.unlock();
 			
-			System.notifyOnRender(render);
+			System.notifyOnFrames(render);
 		});
 	}
 	
-	private static function render(frame: Framebuffer): Void {
-		var g = frame.g4;
+	private static function render(frames: Array<Framebuffer>): Void {
+		var g = frames[0].g4;
 		g.begin();
 		g.clear(Color.Black);
 		g.setPipeline(pipeline);
